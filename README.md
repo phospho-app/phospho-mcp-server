@@ -149,7 +149,7 @@ Claude will call:
 
 ---
 
-## 📚 References
+## References
 
 * [Model Context Protocol](https://github.com/modelcontextprotocol/python-sdk)
 * [phosphobot](https://docs.phospho.ai/installation)
