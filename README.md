@@ -1,15 +1,15 @@
 # phospho-mcp-server
 phospho's official MCP Server
 
-This repository implements a **Model Context Protocol (MCP)** server for **Phosphobot**, enabling natural language interaction and control over a physical robot. It exposes tools to execute actions (e.g. pick up an object) and stream images from the robot's camera.
+This repository implements a **Model Context Protocol (MCP)** server for **phosphobot**, enabling natural language interaction and control over a physical robot. It exposes tools to execute actions (e.g. pick up an object) and stream images from cameras.
 
-Built using [mcp](https://github.com/modelcontextprotocol/mcp) and tailored for Claude, ChatGPT, and other LLMs.
+Built using [mcp](https://github.com/modelcontextprotocol/mcp) and tailored for Claude. 
 
 ## Features
 
-- 🔁 **Replay tool**: triggers a robot action from a dataset (e.g. pick up banana)
-- 📷 **Camera stream**: retrieves the current webcam frame
-- ⚙️ **Phosphobot wrapper**: manages local API processes and communication
+- **Replay tool**: triggers a robot action from a dataset (e.g. pick up banana)
+- **Camera stream**: retrieves the current webcam frame
+- **Phosphobot wrapper**: manages local API processes and communication
 
 ---
 
@@ -45,7 +45,7 @@ def get_camera_frame() -> Image
 
 ---
 
-## 🧱 Architecture
+## Architecture
 
 ```bash
 phospho-mcp-server/
@@ -62,7 +62,7 @@ The `PhosphoBot` class is used to manage the `phosphobot` process lifecycle, and
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Install dependencies
 
@@ -70,26 +70,41 @@ The `PhosphoBot` class is used to manage the `phosphobot` process lifecycle, and
 uv pip install -r requirements.txt
 ```
 
-or (with MCP)
+---
+### 2. Install and run phosphobot 
 
+Installation:
+```bash 
+#macOS
+curl -fsSL https://raw.githubusercontent.com/phospho-app/phosphobot/main/install.sh | bash
+
+#Linux
+curl -fsSL https://raw.githubusercontent.com/phospho-app/phosphobot/main/install.sh | sudo bash
+
+#Windows
+powershell -ExecutionPolicy ByPass -Command "irm https://raw.githubusercontent.com/phospho-app/phosphobot/main/install.ps1 | iex"
+```
+Then, run the phosphobot server:
 ```bash
-uv run --with mcp[cli] --with requests --with opencv-python --with pillow --with psutil
+phosphobot run
 ```
 
-### 2. Start the MCP server
+### 3. Install the MCP server in Claude Desktop and interact with it
 
-```bash
-uv run --with mcp[cli] mcp run server.py
+```bash 
+uv run mcp install server.py
 ```
-
 This will:
 
 * Boot the MCP server under the name `"phosphobot-demo"`
 * Register all tools with Claude or ChatGPT (if connected)
 
----
+To test your server with the MCP inspector, run:
+```bash 
+uv run mcp dev server.py
+```
 
-## 📡 How it works
+## How it works
 
 The server communicates with a local instance of [phosphobot](https://robots.phospho.ai/) through its REST API (default `http://localhost:80`).
 
@@ -100,9 +115,9 @@ All calls are wrapped via `tools/phosphobot.py`.
 
 ---
 
-## 🧪 Testing
+## Testing
 
-### Replay from Claude / ChatGPT
+### Replay from Claude 
 
 Ask:
 
@@ -133,20 +148,9 @@ Claude will call:
 
 ---
 
-## 🧼 Cleanup
-
-To manually stop `phosphobot`:
-
-```bash
-python -c "from tools.phosphobot import PhosphoBot; PhosphoBot().stop()"
-```
-
----
-
-## 📎 Notes
+## Notes
 
 * If you're not using `uv`, just install dependencies manually.
-* Make sure your webcam is not in use by another app.
 * Phosphobot must be running for the tools to succeed.
 
 ---
@@ -154,12 +158,4 @@ python -c "from tools.phosphobot import PhosphoBot; PhosphoBot().stop()"
 ## 📚 References
 
 * [Model Context Protocol](https://modelcontextprotocol.io)
-* [phosphobot](https://robots.phospho.ai/)
-* [MCP Server Everything (reference)](https://github.com/modelcontextprotocol/server-everything)
-
-```
-
----
-
-Souhaites-tu aussi le `requirements.txt` ou un `Dockerfile` à inclure ?
-```
+* [phosphobot](https://docs.phospho.ai/quickstart)
