@@ -3,12 +3,12 @@ phospho's official MCP Server
 
 This repository implements a **Model Context Protocol (MCP)** server for **phosphobot**, enabling natural language interaction and control over a physical robot. It exposes tools to execute actions (e.g. pick up an object) and stream images from cameras.
 
-Built using [mcp](https://github.com/modelcontextprotocol/mcp) and tailored for Claude. 
+Built using [mcp](https://github.com/modelcontextprotocol/python-sdk) and tailored for Claude. 
 
 ## Features
 
-- **Replay tool**: triggers a robot action from a dataset (e.g. pick up banana)
 - **Camera stream**: retrieves the current webcam frame
+- **Replay tool**: triggers a robot action from a dataset (e.g. pick up banana)
 - **Phosphobot wrapper**: manages local API processes and communication
 
 ---
@@ -70,7 +70,6 @@ The `PhosphoBot` class is used to manage the `phosphobot` process lifecycle, and
 uv pip install -r requirements.txt
 ```
 
----
 ### 2. Install and run phosphobot 
 
 Installation:
@@ -97,7 +96,7 @@ uv run mcp install server.py
 This will:
 
 * Boot the MCP server under the name `"phosphobot-demo"`
-* Register all tools with Claude or ChatGPT (if connected)
+* Register all tools with Claude 
 
 To test your server with the MCP inspector, run:
 ```bash 
@@ -117,6 +116,20 @@ All calls are wrapped via `tools/phosphobot.py`.
 
 ## Testing
 
+### Camera from Claude 
+
+Ask:
+
+> “What’s on my desk?”
+
+Claude will call:
+
+```json
+{
+  "tool": "get_camera_frame"
+}
+```
+
 ### Replay from Claude 
 
 Ask:
@@ -132,30 +145,16 @@ Claude will call:
 }
 ```
 
-### Camera from Claude / ChatGPT
-
-Ask:
-
-> “What’s on my desk?”
-
-Claude will call:
-
-```json
-{
-  "tool": "get_camera_frame"
-}
-```
-
 ---
 
 ## Notes
 
 * If you're not using `uv`, just install dependencies manually.
-* Phosphobot must be running for the tools to succeed.
+* phosphobot must be running for the tools to succeed.
 
 ---
 
 ## 📚 References
 
-* [Model Context Protocol](https://modelcontextprotocol.io)
+* [Model Context Protocol](https://github.com/modelcontextprotocol/python-sdk)
 * [phosphobot](https://docs.phospho.ai/quickstart)

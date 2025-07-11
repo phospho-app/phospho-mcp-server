@@ -43,16 +43,6 @@ mcp = FastMCP("phosphobot-demo", lifespan=app_lifespan, dependencies=["requests"
 
 
 @mcp.tool()
-def pickup_object(name: Literal["banana", "black circle", "green cross"]) -> str:
-    ctx = mcp.get_context()
-    app_ctx = cast(AppContext, ctx.request_context.lifespan_context)
-    episode_id = OBJECT_TO_EPISODE.get(name)
-    if episode_id is None:
-        return f"Unknown object: {name}"
-    launch_replay(episode_id=episode_id, phospho=app_ctx.phospho)
-    return f"Launched replay for {name}."
-
-@mcp.tool()
 def get_camera_frame() -> Image:
     """
     Récupère une image depuis le flux webcam du robot (via API phosphobot).
@@ -75,6 +65,18 @@ def get_camera_frame() -> Image:
         )
     except Exception as e:
         raise RuntimeError(f"Failed to decode image: {e}")
+
+@mcp.tool()
+def pickup_object(name: Literal["banana", "black circle", "green cross"]) -> str:
+    ctx = mcp.get_context()
+    app_ctx = cast(AppContext, ctx.request_context.lifespan_context)
+    episode_id = OBJECT_TO_EPISODE.get(name)
+    if episode_id is None:
+        return f"Unknown object: {name}"
+    launch_replay(episode_id=episode_id, phospho=app_ctx.phospho)
+    return f"Launched replay for {name}."
+
+
 
 
 
