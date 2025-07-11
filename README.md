@@ -1,5 +1,5 @@
 # phospho-mcp-server
-phospho's official MCP Server
+[phospho](https://robots.phospho.ai/)'s official MCP Server
 
 This repository implements a **Model Context Protocol (MCP)** server for **phosphobot**, enabling natural language interaction and control over a physical robot. It exposes tools to execute actions (e.g. pick up an object) and stream images from cameras.
 
@@ -9,7 +9,7 @@ Built using [mcp](https://github.com/modelcontextprotocol/python-sdk) and tailor
 
 - **Camera stream**: retrieves the current webcam frame
 - **Replay tool**: triggers a robot action from a dataset (e.g. pick up banana)
-- **Phosphobot wrapper**: manages local API processes and communication
+- **phosphobot wrapper**: manages local API processes and communication
 
 ---
 
@@ -33,14 +33,14 @@ def pickup_object(name: Literal["banana", "black circle", "green cross"]) -> str
 
 ### `get_camera_frame`
 
-> Captures a JPEG image from Phosphobot's camera.
+> Captures a JPEG image from phosphobot's camera.
 
 ```python
 @mcp.tool()
 def get_camera_frame() -> Image
 ```
 
-* Uses the local Phosphobot API (`/frames`)
+* Uses the local phosphobot API (`/frames`)
 * Returns a base64-encoded JPEG image
 
 ---
