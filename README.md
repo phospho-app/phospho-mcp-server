@@ -6,7 +6,7 @@ This repository implements a **Model Context Protocol (MCP)** server for **phosp
 Built using [mcp](https://github.com/modelcontextprotocol/python-sdk) and tailored for Claude. 
 
 
-https://github.com/user-attachments/assets/31a7b8b6-6da3-45fb-957a-da42a758eec2
+https://github.com/user-attachments/assets/2d91f716-c581-4c36-94ab-cc5a94001468
 
 
 ## Features
