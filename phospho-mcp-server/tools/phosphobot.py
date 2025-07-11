@@ -1,10 +1,11 @@
-import subprocess
 import atexit
-from typing import Literal
+import subprocess
+
 import psutil
 import requests
 
-class PhosphoBot:
+
+class PhosphoClient:
     BASE_URL = "http://localhost:80"
 
     def __init__(self):

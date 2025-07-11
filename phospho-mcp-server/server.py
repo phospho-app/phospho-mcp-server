@@ -1,19 +1,12 @@
-import tempfile
-from typing import Literal, cast
-import cv2
-from mcp.server.fastmcp import FastMCP, Image
-from contextlib import asynccontextmanager
-from collections.abc import AsyncIterator
-from dataclasses import dataclass
-import requests
-
-from tools.replay_api import launch_replay
-from tools.phosphobot import PhosphoBot
-from PIL import Image as PILImage
 import base64
-from io import BytesIO
-import platform
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
+from dataclasses import dataclass
+from typing import Literal, cast
 
+from mcp.server.fastmcp import FastMCP, Image
+from tools.phosphobot import PhosphoClient
+from tools.replay_api import launch_replay
 
 # Object-to-episode mapping
 OBJECT_TO_EPISODE = {
@@ -24,14 +17,14 @@ OBJECT_TO_EPISODE = {
 
 @dataclass
 class AppContext:
-    phospho: PhosphoBot
+    phospho: PhosphoClient
 
 @asynccontextmanager
 async def app_lifespan(server: FastMCP) -> AsyncIterator[AppContext]:
     print("Starting Phosphobot...")
     # start_phosphobot()
     # wait_for_phosphobot()  # Important pour ne pas exécuter les tools trop tôt
-    phospho = PhosphoBot()
+    phospho = PhosphoClient()
     try:
         yield AppContext(phospho=phospho)
     finally:
@@ -39,7 +32,7 @@ async def app_lifespan(server: FastMCP) -> AsyncIterator[AppContext]:
         # phospho.stop()
 
 # Create server with lifespan
-mcp = FastMCP("phosphobot-demo", lifespan=app_lifespan, dependencies=["requests", "opencv-python-headless", "pillow", "psutil"])
+mcp = FastMCP("phospho", lifespan=app_lifespan, dependencies=["requests", "opencv-python-headless", "pillow", "psutil"])
 
 
 @mcp.tool()
@@ -47,7 +40,7 @@ def get_camera_frame() -> Image:
     """
     Récupère une image depuis le flux webcam du robot (via API phosphobot).
     """
-    result = PhosphoBot().get("/frames")
+    result = PhosphoClient().get("/frames")
     
     if not isinstance(result, dict):
         raise RuntimeError("Invalid response from phosphobot")
