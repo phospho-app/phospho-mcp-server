@@ -5,6 +5,10 @@ This repository implements a **Model Context Protocol (MCP)** server for **phosp
 
 Built using [mcp](https://github.com/modelcontextprotocol/python-sdk) and tailored for Claude. 
 
+
+https://github.com/user-attachments/assets/31a7b8b6-6da3-45fb-957a-da42a758eec2
+
+
 ## Features
 
 - **Camera stream**: retrieves the current webcam frame
