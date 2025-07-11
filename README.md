@@ -25,11 +25,6 @@ def pickup_object(name: Literal["banana", "black circle", "green cross"]) -> str
 ````
 
 * Launches a pre-recorded episode based on the object name.
-* Currently supports:
-
-  * `"banana"`
-  * `"black circle"`
-  * `"green cross"`
 
 ### `get_camera_frame`
 
