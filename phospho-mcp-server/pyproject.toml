@@ -5,5 +5,11 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "mcp[cli]>=1.10.1",
+    "mcp[cli]==1.10.0",
+    "pillow",
+    "requests",
+    "opencv-python",
 ]
+
+[tool.uv.workspace]
+members = ["phospho-mcp-server"]
